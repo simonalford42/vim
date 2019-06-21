@@ -199,6 +199,7 @@ let g:buftabline_numbers=2
 let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
 let g:highlightedyank_highlight_duration = 50
+:let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
 
 " help
 " https://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
