@@ -28,7 +28,7 @@ colo solarized " solarized color scheme
 set backspace=indent,eol,start " backspace functionality
 set cc=80 " show a vertical line at 80 characters.
 set list " show hidden characters
-set listchars=tab:>- ",trail:_ "add tab as hidden char to show. Not sure if I want trailing spaces shown.
+set listchars=tab:>-" ,trail:_ "add tab as hidden char to show. Not sure if I want trailing spaces shown.
 let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
 let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
@@ -85,6 +85,7 @@ noremap gdd g^dg$
 
 " switch colon and semicolon keys in normal mode
 noremap ; :
+noremap : ;
 
 function! HLLine(blinktime)
     set invcursorline
@@ -154,12 +155,15 @@ nmap <LEADER>+ <Plug>BufTabLine.Go(12)
 noremap gb :e $MYVIMRC<CR>
 " open/close tag bar
 noremap <silent> gH :TagbarToggle<CR>
-" move cursor to tagbar. also makes sure relativenumber is on for it
+" move focus to tag bar
 noremap <silent> gh :TagbarOpen fj<CR>
 " latex current file
 autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
+
+" move cursor to tagbar. also makes sure relativenumber is on for it
+noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
 
 
 " COMMANDS
