@@ -40,12 +40,12 @@ set t_vb= " this is supposed to be blank
 
 " make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh 
 " highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-highlight BufTabLineCurrent cterm=underline ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+highlight BufTabLineCurrent cterm=underline ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 " highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-highlight BufTabLineActive cterm=None ctermbg=11 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-highlight CursorLineNr cterm=None ctermbg=3 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000 
-highlight StatusLineNC cterm=NONE ctermbg=11 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-hi StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=NONE guibg=#ffffff guifg=#d70000
+highlight BufTabLineActive cterm=None ctermbg=10 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+highlight CursorLineNr cterm=None ctermbg=12 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000 
+highlight StatusLineNC cterm=NONE ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+hi StatusLine cterm=NONE ctermbg=1 ctermfg=8 gui=NONE guibg=#ffffff guifg=#d70000
 hi CursorLine cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 hi CursorColumn cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 
@@ -54,7 +54,7 @@ augroup Inserting
      autocmd!
     autocmd InsertEnter * highlight StatusLine cterm=NONE ctermbg=4 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
    " Revert Color to default when leaving Insert Mode
-    autocmd InsertLeave * highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
+    autocmd InsertLeave * highlight StatusLine cterm=NONE ctermbg=1 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
      autocmd InsertLeave * write " might slow things down a bit
 augroup END
 
