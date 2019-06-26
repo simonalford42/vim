@@ -4,3 +4,10 @@ profiles. click the gear sign to import a new one. Then you're good.
 
 Download karabiner elements. Follow this tutorial:
 https://medium.com/@pechyonkin/how-to-map-capslock-to-control-and-escape-on-mac-60523a64022b
+
+Download spectacle.
+
+Put stty -ixon into your bash_profile
+
+ln -s ~/.bash_profile ~/.bashrc so that terminal works in vim.
+ln
