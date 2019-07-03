@@ -168,7 +168,9 @@ autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
 " on openmind, don't go to the most recent line upon opening file
-" au! redhat BufReadPost
+if $HOSTNAME == "openmind7"
+    au! redhat BufReadPost
+endif
 
 " move cursor to tagbar. also makes sure relativenumber is on for it
 " noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
