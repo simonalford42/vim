@@ -22,7 +22,7 @@ export PATH=/Users/alfordsimon/Documents/apache-maven-3.5.0/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 alias ll="ssh salford@txe1-login.mit.edu"
-alias om='ssh salford@openmind7.mit.edu'
+alias om='ssh -Y salford@openmind7.mit.edu'
 alias ls='ls -Gp' # G colorizes output, p puts a / after directories
 alias tb='ssh -L 16006:127.0.0.1:6006 salford@txe1-login.mit.edu'
 alias et='rm -f -r ~/trash/*'
