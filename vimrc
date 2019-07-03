@@ -40,8 +40,8 @@ set t_vb= " this is supposed to be blank
 
 " make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh 
 " highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-highlight BufTabLineCurrent cterm=underline ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-" highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+highlight BufTabLineCurrent cterm=underline ctermbg=14 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+" highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=10 gui=underline guibg=#ffffff guifg=#d70000
 highlight BufTabLineActive cterm=None ctermbg=10 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 highlight CursorLineNr cterm=None ctermbg=12 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000 
 highlight StatusLineNC cterm=NONE ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
@@ -127,6 +127,8 @@ nnoremap <TAB> i<TAB><ESC>l
 noremap <LEADER><CR> m'O<ESC>''
 " comment line
 noremap <LEADER>c 0i#<ESC>
+" make line blank
+noremap <LEADER>d 0d$
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
@@ -203,8 +205,15 @@ let g:buftabline_numbers=2
 let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
 let g:highlightedyank_highlight_duration = 50
-:let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
+let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
+
+" colo delek " for high contrast color. Turn on bright profile as default in
+" Terminal prefs
 
 " help
 " https://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " https://vim.fandom.com/wiki/Unused_keys
+"
+" If you need high contrast color scheme: 
+" Go to Terminal preferences and make Bright the default. Open a new tab, and
+" set colo Delek. Also increase the font size a bit.
