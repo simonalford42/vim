@@ -64,6 +64,10 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
+" for yank highlighted text
+if !exists('##TextYankPost')
+      map y <Plug>(highlightedyank)
+endif
 
 " REMAPPINGS
 
@@ -76,8 +80,8 @@ noremap gs g^
 noremap gs g$
 " may add these if they come up. but need to be careful about overwriting other
 " commands
-noremap gY yg$
-noremap gyy g^yg$
+map gY yg$ " has to be recursive so that y calls highlight text
+map gyy g^yg$
 noremap gC cg$
 noremap gcc g^cg$ " note this will make gc (currently mapped) go slower
 noremap gD dg$
@@ -100,7 +104,7 @@ endfunction
 " close buffer while leaving split open
 " cnoremap bs bp\|bd #
 " old Y was a synonym for yy, this gives parallelism with C and D behavior
-noremap Y y$
+map Y y$
 
 "make < > shifts keep selection
 vnoremap < <gv
@@ -158,14 +162,17 @@ noremap gb :e $MYVIMRC<CR>
 " open/close tag bar
 noremap <silent> gH :TagbarToggle<CR>
 " move focus to tag bar
-noremap <silent> gh :TagbarOpen fj<CR>
+noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
 " latex current file
 autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
+" on openmind, don't go to the most recent line upon opening file
+au! redhat BufReadPost
 
 " move cursor to tagbar. also makes sure relativenumber is on for it
-noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
+" noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
+"
 
 
 " COMMANDS
@@ -184,6 +191,7 @@ command! DelTrailWhite :%s/\s\+$//e
 command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
+command! Remove :!mv % ~/trash/%
 
 
 " PLUGINS
@@ -206,7 +214,6 @@ let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
 let g:highlightedyank_highlight_duration = 50
 let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
-
 " colo delek " for high contrast color. Turn on bright profile as default in
 " Terminal prefs
 
