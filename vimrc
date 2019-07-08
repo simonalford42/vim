@@ -64,6 +64,12 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
+augroup remember_folds
+  autocmd!
+  au BufWinLeave ?* mkview 1
+  au BufWinEnter ?* silent! loadview 1
+augroup END
+
 " for yank highlighted text
 if !exists('##TextYankPost')
       map y <Plug>(highlightedyank)
