@@ -9,6 +9,7 @@ filetype plugin indent on
 set nocompatible "needed to run plugins?
 set t_Co=256 " for color support in vim, not sure if needed with solarized
 set hidden " allow changing buffers without saving
+" set autochdir " set vim working directory to that of currently edited file
 
 set number " show line numbers
 set relativenumber "show relative line numbers. with both, keeps line # at 0
@@ -64,11 +65,11 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
-augroup remember_folds
-  autocmd!
-  au BufWinLeave ?* mkview 1
-  au BufWinEnter ?* silent! loadview 1
-augroup END
+" augroup remember_folds
+"  autocmd!
+"  au BufWinLeave ?* mkview 1
+"  au BufWinEnter ?* silent! loadview 1
+" augroup END
 
 " for yank highlighted text
 if !exists('##TextYankPost')
