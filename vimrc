@@ -135,6 +135,8 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 
 " <Leader> enter adds new line above
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <LEADER>bt ciwTrue<ESC> " toggle python boolean
+nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
 noremap <LEADER>c 0i#<ESC>
 " make line blank
