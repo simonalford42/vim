@@ -8,9 +8,9 @@ setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=
+setlocal bufhidden=hide
 setlocal nobuflisted
-setlocal buftype=help
+setlocal buftype=nofile
 setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
@@ -19,22 +19,22 @@ setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=nc
-setlocal conceallevel=2
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-setlocal nocursorline
+setlocal cursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'help'
-setlocal filetype=help
+if &filetype != 'tagbar'
+setlocal filetype=tagbar
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -48,7 +48,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tcroql
+setlocal formatoptions=cqt
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -59,7 +59,7 @@ setlocal includeexpr=
 setlocal indentexpr=
 setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
-setlocal iskeyword=!-~,^*,^|,^\",192-255
+setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
 setlocal linebreak
 setlocal nolisp
@@ -78,8 +78,8 @@ setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
-setlocal readonly
-setlocal norelativenumber
+setlocal noreadonly
+setlocal relativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -92,35 +92,34 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=
+setlocal statusline=%#StatusLine#[Name]\ amexedit.py
 setlocal suffixesadd=
-setlocal swapfile
+setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'help'
-setlocal syntax=help
+if &syntax != 'tagbar'
+setlocal syntax=tagbar
 endif
-setlocal tabstop=8
+setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=78
+setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
 setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
+setlocal winfixwidth
+setlocal nowrap
 setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 320 - ((5 * winheight(0) + 10) / 21)
+let s:l = 1 - ((0 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-320
+1
 normal! 0
 lcd ~/Dailies
 let &so = s:so_save | let &siso = s:siso_save

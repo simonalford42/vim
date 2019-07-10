@@ -26,7 +26,7 @@ setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-setlocal nocursorline
+setlocal cursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
@@ -116,12 +116,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 320 - ((5 * winheight(0) + 10) / 21)
+let s:l = 96 - ((26 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-320
-normal! 0
+96
+normal! 031|
 lcd ~/Dailies
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost

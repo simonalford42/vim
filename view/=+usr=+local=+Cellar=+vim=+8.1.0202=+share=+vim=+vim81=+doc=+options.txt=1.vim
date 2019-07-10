@@ -116,12 +116,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 320 - ((5 * winheight(0) + 10) / 21)
+let s:l = 4669 - ((0 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-320
-normal! 0
+4669
+normal! 035|
 lcd ~/Dailies
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost

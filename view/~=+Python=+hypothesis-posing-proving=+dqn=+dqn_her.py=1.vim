@@ -12,12 +12,12 @@ setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
 setlocal nocindent
-setlocal cinkeys=0{,0},0),:,!^F,o,O,e
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=80
-setlocal comments=b:#,fb:-
-setlocal commentstring=#\ %s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -54,13 +54,13 @@ setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=^\\s*\\(from\\|import\\)
-setlocal includeexpr=substitute(substitute(substitute(v:fname,b:grandparent_match,b:grandparent_sub,''),b:parent_match,b:parent_sub,''),b:child_match,b:child_sub,'g')
+setlocal include=
+setlocal includeexpr=
 setlocal indentexpr=GetPythonIndent(v:lnum)
-setlocal indentkeys=0{,0},:,!^F,o,O,e,<:>,=elif,=except
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,<:>,=elif,=except
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=pydoc
+setlocal keywordprg=
 setlocal linebreak
 setlocal nolisp
 setlocal lispwords=
@@ -73,7 +73,7 @@ setlocal modifiable
 setlocal nrformats=bin,octal,hex
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=python3complete#Complete
+setlocal omnifunc=
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -93,13 +93,13 @@ setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
-setlocal suffixesadd=.py
+setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
 if &syntax != 'python'
 setlocal syntax=python
 endif
-setlocal tabstop=8
+setlocal tabstop=4
 setlocal tagcase=
 setlocal tags=
 setlocal termwinkey=
@@ -116,23 +116,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-1,13fold
-43,47fold
-63,80fold
-62,81fold
-62,81fold
-62
-normal! zo
-62
-normal! zo
-63
-normal! zo
-let s:l = 35 - ((0 * winheight(0) + 22) / 45)
+let s:l = 74 - ((33 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-35
-normal! 09|
+74
+normal! 035|
+lcd ~/Dailies
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :

@@ -1,5 +1,24 @@
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <MiddleMouse> <Plug>IMiddlemouse
+imap <buffer> <LeftMouse> <Plug>ILeftmouse
+nmap <buffer>  <Plug>NetrwHideEdit
+nmap <buffer>  <Plug>NetrwRefresh
+nnoremap <buffer> <F1> :he netrw-quickhelp
+nmap <buffer> <silent> <Plug>Netrw2Leftmouse -
+nmap <buffer> <2-LeftMouse> <Plug>Netrw2Leftmouse
+nmap <buffer> <S-LeftDrag> <Plug>NetrwSLeftdrag
+nmap <buffer> <S-LeftMouse> <Plug>NetrwSLeftmouse
+nmap <buffer> <MiddleMouse> <Plug>NetrwMiddlemouse
+nmap <buffer> <C-LeftMouse> <Plug>NetrwCLeftmouse
+nmap <buffer> <LeftMouse> <Plug>NetrwLeftmouse
+nmap <buffer> <nowait> <silent> <S-CR> <Plug>NetrwTreeSqueeze
+nnoremap <buffer> <silent> <S-Up> :Pexplore
+nnoremap <buffer> <silent> <S-Down> :Nexplore
+let &cpo=s:cpo_save
+unlet s:cpo_save
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -8,9 +27,9 @@ setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=
-setlocal nobuflisted
-setlocal buftype=help
+setlocal bufhidden=hide
+setlocal buflisted
+setlocal buftype=
 setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
@@ -19,26 +38,26 @@ setlocal colorcolumn=80
 setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=nc
-setlocal conceallevel=2
+setlocal concealcursor=
+setlocal conceallevel=0
 setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
 setlocal nocursorcolumn
-setlocal nocursorline
+setlocal cursorline
 setlocal define=
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'help'
-setlocal filetype=help
+if &filetype != 'netrw'
+setlocal filetype=netrw
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
-setlocal nofoldenable
+setlocal foldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
@@ -48,7 +67,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tcroql
+setlocal formatoptions=cqt
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
@@ -59,19 +78,19 @@ setlocal includeexpr=
 setlocal indentexpr=
 setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
-setlocal iskeyword=!-~,^*,^|,^\",192-255
+setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
 setlocal linebreak
 setlocal nolisp
 setlocal lispwords=
-setlocal nolist
+setlocal list
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal nomodifiable
 setlocal nrformats=bin,octal,hex
-setlocal nonumber
+setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=
 setlocal path=
@@ -79,7 +98,7 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal readonly
-setlocal norelativenumber
+setlocal relativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -94,18 +113,18 @@ setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
 setlocal suffixesadd=
-setlocal swapfile
+setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'help'
-setlocal syntax=help
+if &syntax != 'netrw'
+setlocal syntax=netrw
 endif
-setlocal tabstop=8
+setlocal tabstop=33
 setlocal tagcase=
 setlocal tags=
 setlocal termwinkey=
 setlocal termwinscroll=10000
 setlocal termwinsize=
-setlocal textwidth=78
+setlocal textwidth=80
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
@@ -116,13 +135,13 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 320 - ((5 * winheight(0) + 10) / 21)
+let s:l = 2 - ((1 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-320
+2
 normal! 0
-lcd ~/Dailies
+lcd ~/Library/Jupyter/nbextensions/vim_binding
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :

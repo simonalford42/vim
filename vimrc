@@ -80,9 +80,9 @@ endif
 " make it easier to yank to system register
 noremap K "*
 " since s and s are redundant, map to start and end of line
-noremap s ^
+noremap s _
 noremap S $
-noremap gs g^ 
+noremap gs g_ 
 noremap gs g$
 " may add these if they come up. but need to be careful about overwriting other
 " commands
@@ -121,20 +121,19 @@ nnoremap <C-S> :wa<CR>
 " next and previous buffer
 nnoremap <C-K> :bn<CR>
 nnoremap <C-J> :bp<CR>
-nnoremap <C-P> :bd<CR>
+" nnoremap <C-P> :bd<CR> " conflicts with ctrl-p. Don't use this much.
 nnoremap <C-Q> :bp\|bd #<CR>
 nnoremap <C-N> :call HLLine(0.1)<CR>
 
 " give basic keys some functionality in normal mode
-nnoremap <CR> m'o<ESC>``
-" backspace deletes (note: doesn't work perfectly at beginning of line)
-nnoremap <BS> i<BS><ESC>l
-nnoremap <TAB> i<TAB><ESC>l
+nnoremap <BS> <<
+nnoremap <TAB> >>
+nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
 
 " LEADER REMAPPINGS. 
 
 " <Leader> enter adds new line above
-noremap <LEADER><CR> m'O<ESC>''
+nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 " comment line
 noremap <LEADER>c 0i#<ESC>
 " make line blank
@@ -213,15 +212,17 @@ let g:netrw_liststyle = 4 " file navigator default view
 let g:netrw_banner = 0 " don't show the header for file navigator
 let g:netrw_winsize = 25 "file navigator width is 25% of page
 let g:netrw_list_hide = '^\./$' " for hiding ./ I think
+let g:netrw_bufsettings = 'noma nomod ro' 
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide.=',' . ghregex
 let g:netrw_hide = 1
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro' " keep file-nav line numbers 
 let g:buftabline_numbers=2
 let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
 let g:highlightedyank_highlight_duration = 50
 let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
+let g:ctrlp_map = '<C-P>'
+let g:ctrlp_cmd = 'CtrlP'
 " colo delek " for high contrast color. Turn on bright profile as default in
 " Terminal prefs
 
