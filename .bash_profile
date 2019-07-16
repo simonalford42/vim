@@ -28,6 +28,7 @@ alias tb='ssh -L 16006:127.0.0.1:6006 salford@txe1-login.mit.edu'
 alias et='rm -f -r ~/trash/*'
 alias ps='ssh -Y salford@polestar.mit.edu'
 alias cap='conda activate pytorch'
+alias delswaps='find . -type f -name ".*.sw[klmnop]" -delete'
 
 # for compiling latex from vim
 latte () {
@@ -38,3 +39,5 @@ latte () {
 }
 . //anaconda/etc/profile.d/conda.sh # not sure why this is here
 stty -ixon # so that ctrl-S can be used in vim
+# to use vim things in command prompt
+set -o vi

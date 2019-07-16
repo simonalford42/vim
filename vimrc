@@ -15,7 +15,7 @@ set number " show line numbers
 set relativenumber "show relative line numbers. with both, keeps line # at 0
 set mouse=a " allow mouse to be used
 set noshowmode " don't show --INSERT-- 
-set timeoutlen=1000 ttimeoutlen=0 " to make escaping insert mode faster.
+set timeoutlen=150 ttimeoutlen=00 " to make escaping insert mode faster.
 
 set tabstop=4 " set number of spaces in tab
 set shiftwidth=4 " set shift width
@@ -145,10 +145,15 @@ noremap <LEADER>d 0d$
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
 noremap <LEADER>le i\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
-" repeat last macro
-noremap <LEADER>r @@
 " make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: ' + str(<ESC>pa))<ESC>
+" repeat last macro
+noremap <LEADER>r @@
+" compare swap file and original
+noremap <LEADER>s <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
+noremap <LEADER>df :windo diffthis<CR>
+noremap <LEADER>t  :wa<CR>:bp\|bd #<CR><C-o>
+noremap <LEADER>v :bp<CR>:bp\|bd #<CR>
 " uncomment line
 noremap <LEADER>u :s/#/<ESC>:noh<CR>
 " go to buffer 1-l0. hopefully won't have more than 10 open.
