@@ -16,6 +16,8 @@ set relativenumber "show relative line numbers. with both, keeps line # at 0
 set mouse=a " allow mouse to be used
 set noshowmode " don't show --INSERT-- 
 set timeoutlen=1000 ttimeoutlen=0 " to make escaping insert mode faster.
+set nohlsearch
+
 
 set tabstop=4 " set number of spaces in tab
 set shiftwidth=4 " set shift width
@@ -135,7 +137,8 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 
 " <Leader> enter adds new line above
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
-nnoremap <LEADER>bt ciwTrue<ESC> " toggle python boolean
+" toggle python booleans
+nnoremap <LEADER>bt ciwTrue<ESC>
 nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
 noremap <LEADER>c 0i#<ESC>
