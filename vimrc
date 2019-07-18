@@ -15,9 +15,7 @@ set number " show line numbers
 set relativenumber "show relative line numbers. with both, keeps line # at 0
 set mouse=a " allow mouse to be used
 set noshowmode " don't show --INSERT-- 
-set timeoutlen=1000 ttimeoutlen=0 " to make escaping insert mode faster.
-set nohlsearch
-
+set timeoutlen=3000 ttimeoutlen=00 " to make escaping insert mode faster.
 
 set tabstop=4 " set number of spaces in tab
 set shiftwidth=4 " set shift width
@@ -54,11 +52,11 @@ hi CursorColumn cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 
 "Autocmds:  
 augroup Inserting
-     autocmd!
+    autocmd!
     autocmd InsertEnter * highlight StatusLine cterm=NONE ctermbg=4 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
-   " Revert Color to default when leaving Insert Mode
+    " Revert Color to default when leaving Insert Mode
     autocmd InsertLeave * highlight StatusLine cterm=NONE ctermbg=1 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
-     autocmd InsertLeave * write " might slow things down a bit
+    autocmd InsertLeave * write " might slow things down a bit
 augroup END
 
 augroup CursorLineOnlyInActiveWindow
@@ -75,7 +73,7 @@ augroup END
 
 " for yank highlighted text
 if !exists('##TextYankPost')
-      map y <Plug>(highlightedyank)
+    map y <Plug>(highlightedyank)
 endif
 
 " REMAPPINGS
@@ -143,15 +141,22 @@ nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
 noremap <LEADER>c 0i#<ESC>
 " make line blank
-noremap <LEADER>d 0d$
+noremap <LEADER>dd 0d$
+" toggle hlsearch
+noremap <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
 noremap <LEADER>le i\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
-" repeat last macro
-noremap <LEADER>r @@
 " make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: ' + str(<ESC>pa))<ESC>
+" repeat last macro
+noremap <LEADER>r @@
+" compare swap file and original
+noremap <LEADER>s <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
+noremap <LEADER>df :windo diffthis<CR>
+noremap <LEADER>t  :wa<CR>:bp\|bd #<CR><C-o>
+noremap <LEADER>v :bp<CR>:bp\|bd #<CR>
 " uncomment line
 noremap <LEADER>u :s/#/<ESC>:noh<CR>
 " go to buffer 1-l0. hopefully won't have more than 10 open.
@@ -166,7 +171,7 @@ nmap <LEADER>8 <Plug>BufTabLine.Go(8)
 nmap <LEADER>9 <Plug>BufTabLine.Go(9)
 nmap <LEADER>0 <Plug>BufTabLine.Go(10)
 nmap <LEADER>- <Plug>BufTabLine.Go(11)
-nmap <LEADER>+ <Plug>BufTabLine.Go(12)
+nmap <LEADER>= <Plug>BufTabLine.Go(12)
 " g remappings. For more code/python related stuff but not strict.
 " open vimrc
 noremap gb :e $MYVIMRC<CR>
@@ -204,7 +209,6 @@ command! DelTrailWhite :%s/\s\+$//e
 command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
-command! Remove :!mv % ~/trash/%
 
 
 " PLUGINS
