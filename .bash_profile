@@ -30,6 +30,10 @@ alias ps='ssh -Y salford@polestar.mit.edu'
 alias cap='conda activate pytorch'
 alias delswaps='find . -type f -name ".*.sw[klmnop]" -delete'
 
+function mvt() {
+    mv $1 ~/trash/
+}
+
 # for compiling latex from vim
 latte () {
     let a=${#1}-3
