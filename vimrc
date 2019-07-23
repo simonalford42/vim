@@ -72,9 +72,9 @@ augroup END
 " augroup END
 
 " for yank highlighted text
-if !exists('##TextYankPost')
-    map y <Plug>(highlightedyank)
-endif
+" if !exists('##TextYankPost')
+"    map y <Plug>(highlightedyank)
+" endif
 
 " REMAPPINGS
 
@@ -120,9 +120,8 @@ vnoremap > >gv
 inoremap <C-S> <ESC>:wa<CR>
 nnoremap <C-S> :wa<CR>
 " next and previous buffer
-nnoremap <C-K> :bn<CR>
-nnoremap <C-J> :bp<CR>
-" nnoremap <C-P> :bd<CR> " conflicts with ctrl-p. Don't use this much.
+nnoremap <C-K> :<C-U>execute v:count1 . "bn"<CR>
+nnoremap <C-J> :<C-U>execute v:count1 . "bp"<CR>
 nnoremap <C-Q> :bp\|bd #<CR>
 nnoremap <C-N> :call HLLine(0.1)<CR>
 
@@ -139,7 +138,7 @@ nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:cou
 nnoremap <LEADER>bt ciwTrue<ESC>
 nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
-noremap <LEADER>c 0i#<ESC>
+noremap <LEADER>c 0i echo split(&commentstring, '%s')[0]<ESC>
 " make line blank
 noremap <LEADER>dd 0d$
 " toggle hlsearch
@@ -148,7 +147,7 @@ noremap <LEADER>h :set hlsearch!<CR>
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
 noremap <LEADER>le i\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
-" make print statement for yanked variable at current line
+    " make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: ' + str(<ESC>pa))<ESC>
 " repeat last macro
 noremap <LEADER>r @@
@@ -172,6 +171,8 @@ nmap <LEADER>9 <Plug>BufTabLine.Go(9)
 nmap <LEADER>0 <Plug>BufTabLine.Go(10)
 nmap <LEADER>- <Plug>BufTabLine.Go(11)
 nmap <LEADER>= <Plug>BufTabLine.Go(12)
+
+nmap <LEADER># mzSF#D<LEADER><CR>kPjsy0kPS
 " g remappings. For more code/python related stuff but not strict.
 " open vimrc
 noremap gb :e $MYVIMRC<CR>
