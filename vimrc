@@ -77,6 +77,11 @@ augroup END
 " endif
 
 " REMAPPINGS
+" double clicking highlights word, yanks to register
+nnoremap <silent> <2-LeftMouse> :let @/='\V\<'.escape(expand('<cword>'),'\').'\>'<cr>:set hls<cr>:let @"=expand('<cword>')<cr>
+
+" add parenthesis to end of line while in insert mode
+inoremap <C-B> <ESC>A)<ESC> 
 
 " make it easier to yank to system register
 noremap K "*
@@ -87,12 +92,12 @@ noremap gs g_
 noremap gs g$
 " may add these if they come up. but need to be careful about overwriting other
 " commands
-map gY yg$ " has to be recursive so that y calls highlight text
-map gyy g^yg$
-noremap gC cg$
-noremap gcc g^cg$ " note this will make gc (currently mapped) go slower
-noremap gD dg$
-noremap gdd g^dg$
+" map gY yg$ " has to be recursive so that y calls highlight text
+" map gyy g^yg$
+" noremap gC cg$
+" noremap gcc g^cg$ " note this will make gc (currently mapped) go slower
+" noremap gD dg$
+" noremap gdd g^dg$
 
 " switch colon and semicolon keys in normal mode
 noremap ; :
@@ -120,8 +125,8 @@ vnoremap > >gv
 inoremap <C-S> <ESC>:wa<CR>
 nnoremap <C-S> :wa<CR>
 " next and previous buffer
-nnoremap <C-K> :<C-U>execute v:count1 . "bn"<CR>
-nnoremap <C-J> :<C-U>execute v:count1 . "bp"<CR>
+nnoremap <silent> <C-K> :<C-U>execute v:count1 . "bn"<CR>
+nnoremap <silent> <C-J> :<C-U>execute v:count1 . "bp"<CR>
 nnoremap <C-Q> :bp\|bd #<CR>
 nnoremap <C-N> :call HLLine(0.1)<CR>
 
@@ -142,7 +147,7 @@ noremap <LEADER>c 0i#<ESC>
 " make line blank
 noremap <LEADER>dd 0d$
 " toggle hlsearch
-noremap <LEADER>h :set hlsearch!<CR>
+noremap <silent> <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
@@ -154,6 +159,7 @@ noremap <LEADER>r @@
 " compare swap file and original
 noremap <LEADER>s <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
 noremap <LEADER>df :windo diffthis<CR>
+noremap <LEADER>do :windo diffoff<CR>
 noremap <LEADER>t  :wa<CR>:bp\|bd #<CR><C-o>
 noremap <LEADER>v :bp<CR>:bp\|bd #<CR>
 " uncomment line
@@ -210,6 +216,7 @@ command! DelTrailWhite :%s/\s\+$//e
 command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
+command! Nowrap :setlocal tw=1000
 
 
 " PLUGINS
