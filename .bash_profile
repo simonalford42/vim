@@ -25,8 +25,7 @@ alias ll="ssh salford@txe1-login.mit.edu"
 alias om='ssh -Y salford@openmind7.mit.edu'
 alias ls='ls -Gp' # G colorizes output, p puts a / after directories
 alias tb='ssh -L 16006:127.0.0.1:6006 salford@txe1-login.mit.edu'
-alias et='rm -f -r ~/trash/*'
-alias ps='ssh -Y salford@polestar.mit.edu'
+alias polestar='ssh -Y salford@polestar.mit.edu'
 alias cap='conda activate pytorch'
 alias delswaps='find . -type f -name ".*.sw[klmnop]" -delete'
 

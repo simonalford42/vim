@@ -138,7 +138,7 @@ nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:cou
 nnoremap <LEADER>bt ciwTrue<ESC>
 nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
-noremap <LEADER>c 0i echo split(&commentstring, '%s')[0]<ESC>
+noremap <LEADER>c 0i#<ESC>
 " make line blank
 noremap <LEADER>dd 0d$
 " toggle hlsearch
