@@ -28,6 +28,8 @@ alias tb='ssh -L 16006:127.0.0.1:6006 salford@txe1-login.mit.edu'
 alias polestar='ssh -Y salford@polestar.mit.edu'
 alias cap='conda activate pytorch'
 alias delswaps='find . -type f -name ".*.sw[klmnop]" -delete'
+alias athena='ssh -Y salford@athena.dialup.mit.edu'
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 function mvt() {
     mv $1 ~/trash/
@@ -44,3 +46,14 @@ latte () {
 stty -ixon # so that ctrl-S can be used in vim
 # to use vim things in command prompt
 set -o vi
+
+# Setting PATH for Python 3.7
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
+export PATH
+
+# added for sketch 2020 6.s084
+export PATH="$PATH:/Users/alfordsimon/Applications/sketch-1.7.6/sketch-frontend/"
+export SKETCH_HOME="/Users/alfordsimon/Applications/sketch-1.7.6/sketch-frontend/runtime"
+
+alias python=/usr/local/bin/python3.7

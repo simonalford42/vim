@@ -39,10 +39,14 @@ set visualbell " turn on visual bell so that set t_vb turns off flashing at
 set t_vb= " this is supposed to be blank
 "au BufWinEnter * set relativenumber " set relativenumber for all buffers
 
+" for sketch syntax
+au BufRead,BufNewFile *.sk set syntax=sketch
+au BufRead,BufNewFile *.sk set filetype=java
+
 " make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh 
-" highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
+highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 highlight BufTabLineCurrent cterm=underline ctermbg=14 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-" highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=10 gui=underline guibg=#ffffff guifg=#d70000
+"highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=10 gui=underline guibg=#ffffff guifg=#d70000
 highlight BufTabLineActive cterm=None ctermbg=10 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 highlight CursorLineNr cterm=None ctermbg=12 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000 
 highlight StatusLineNC cterm=NONE ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
@@ -86,9 +90,9 @@ inoremap <C-B> <ESC>A)<ESC>
 " make it easier to yank to system register
 noremap K "*
 " since s and s are redundant, map to start and end of line
-noremap s _
+noremap s ^
 noremap S $
-noremap gs g_ 
+noremap gs g^ 
 noremap gs g$
 " may add these if they come up. but need to be careful about overwriting other
 " commands
@@ -143,7 +147,9 @@ nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:cou
 nnoremap <LEADER>bt ciwTrue<ESC>
 nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
-noremap <LEADER>c 0i#<ESC>
+map <LEADER>c gcc
+" erase a line without saving to register
+noremap <LEADER>ds "_dd
 " make line blank
 noremap <LEADER>dd 0d$
 " toggle hlsearch
@@ -151,7 +157,7 @@ noremap <silent> <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
-noremap <LEADER>le i\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
+noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
     " make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: ' + str(<ESC>pa))<ESC>
 " repeat last macro
@@ -162,6 +168,7 @@ noremap <LEADER>df :windo diffthis<CR>
 noremap <LEADER>do :windo diffoff<CR>
 noremap <LEADER>t  :wa<CR>:bp\|bd #<CR><C-o>
 noremap <LEADER>v :bp<CR>:bp\|bd #<CR>
+noremap <LEADER>tw :set tw=0<CR>
 " uncomment line
 noremap <LEADER>u :s/#/<ESC>:noh<CR>
 " go to buffer 1-l0. hopefully won't have more than 10 open.
@@ -178,16 +185,18 @@ nmap <LEADER>0 <Plug>BufTabLine.Go(10)
 nmap <LEADER>- <Plug>BufTabLine.Go(11)
 nmap <LEADER>= <Plug>BufTabLine.Go(12)
 
+" put a python comment above the line, instead of at end of line.
 nmap <LEADER># mzSF#D<LEADER><CR>kPjsy0kPS
 " g remappings. For more code/python related stuff but not strict.
 " open vimrc
 noremap gb :e $MYVIMRC<CR>
 " open/close tag bar
-noremap <silent> gH :TagbarToggle<CR>
+noremap <silent> gh :TagbarToggle<CR>
 " move focus to tag bar
-noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
+noremap <silent> gH :TagbarOpen fj<CR>:set relativenumber<CR>
 " latex current file
-autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
+" autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
+noremap gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
 " on openmind, don't go to the most recent line upon opening file
@@ -225,7 +234,9 @@ let g:tagbar_width=40 " tag bar width
 let g:tagbar_zoomwidth=0 " tag bar width when zoomed via x
 let g:tagbar_compact=1 "compactify the tag bar
 let g:tagbar_indent=1
-let g:tagbar_show_line_numbers=2
+let g:tagbar_show_line_numbers=2 "relative line numbers
+let g:tagbar_singleclick=1 " jump by a single clikc
+let g:tagbar_sort=0 " don't sort alphabetically
 let g:netrw_liststyle = 4 " file navigator default view
 let g:netrw_banner = 0 " don't show the header for file navigator
 let g:netrw_winsize = 25 "file navigator width is 25% of page
@@ -241,7 +252,6 @@ let g:highlightedyank_highlight_duration = 50
 let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
-" colo delek " for high contrast color. Turn on bright profile as default in
 " Terminal prefs
 
 " help
