@@ -6,7 +6,7 @@ Steps:
 4. Run setup.bash in here.
 5. Go to Terminal Preferences -> Profiles. Click the gear sign to import a new one, and choose ~/Documents/solarized_dark.terminal (which was put there by the bash
 script.) 
-6. Go to Karabiner Elements. Add complex modification 'Post Esc if Caps is tapped, Control if held. Add simple mods remapping caps_lock to left_control, escape to caps_lock
+6. Go to Karabiner Elements. Add complex modification 'Post Esc if Caps is tapped, Control if held. 
 
 Sources for more info:
 
