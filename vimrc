@@ -69,6 +69,9 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
+" run python checker
+autocmd BufWritePost *.py call flake8#Flake8()
+
 " augroup remember_folds
 "  autocmd!
 "  au BufWinLeave ?* mkview 1
@@ -126,8 +129,10 @@ map Y y$
 vnoremap < <gv
 vnoremap > >gv
 " ctrl-S saves all and escapes
-inoremap <C-S> <ESC>:wa<CR>
-nnoremap <C-S> :wa<CR>
+" note: if ctrl-S and ctrl-Q aren't working, see 
+" https://vi.stackexchange.com/questions/2419/mapping-ctrls-does-not-work
+inoremap <C-S> <ESC>:w<CR>
+nnoremap <C-S> :w<CR>
 " next and previous buffer
 nnoremap <silent> <C-K> :<C-U>execute v:count1 . "bn"<CR>
 nnoremap <silent> <C-J> :<C-U>execute v:count1 . "bp"<CR>
@@ -199,10 +204,18 @@ noremap <silent> gH :TagbarOpen fj<CR>:set relativenumber<CR>
 noremap gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
+
 " on openmind, don't go to the most recent line upon opening file
 if $HOSTNAME == "openmind7"
     au! redhat BufReadPost
 endif
+
+" Allow us to use Ctrl-s and Ctrl-q as keybinds
+silent !stty -ixon
+
+" Restore default behaviour when leaving Vim.
+autocmd VimLeave * silent !stty ixon
+
 
 " move cursor to tagbar. also makes sure relativenumber is on for it
 " noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
