@@ -71,6 +71,8 @@ augroup END
 
 " run python checker
 autocmd BufWritePost *.py call flake8#Flake8()
+" latex file upon saving.
+" autocmd BufWritePost *.tex FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
 
 " augroup remember_folds
 "  autocmd!
@@ -157,6 +159,8 @@ map <LEADER>c gcc
 noremap <LEADER>ds "_dd
 " make line blank
 noremap <LEADER>dd 0d$
+" in python, search function you're inside's name
+nmap <LEADER>e [[w*
 " toggle hlsearch
 noremap <silent> <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
@@ -164,7 +168,7 @@ noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
 noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
     " make print statement for yanked variable at current line
-noremap <LEADER>p oprint('<ESC>pa: ' + str(<ESC>pa))<ESC>
+noremap <LEADER>p oprint('<ESC>pa: {}'.format(<ESC>pa))<ESC>
 " repeat last macro
 noremap <LEADER>r @@
 " compare swap file and original
@@ -196,12 +200,11 @@ nmap <LEADER># mzSF#D<LEADER><CR>kPjsy0kPS
 " open vimrc
 noremap gb :e $MYVIMRC<CR>
 " open/close tag bar
-noremap <silent> gh :TagbarToggle<CR>
+noremap <silent> gH :TagbarToggle<CR>
 " move focus to tag bar
-noremap <silent> gH :TagbarOpen fj<CR>:set relativenumber<CR>
+noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
 " latex current file
-" autocmd FileType latex noremap gl :w<CR>:!latte %<CR>
-noremap gl :w<CR>:!latte %<CR>
+autocmd FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
 
@@ -244,7 +247,7 @@ command! Nowrap :setlocal tw=1000
 " PLUGINS
 
 let g:tagbar_width=40 " tag bar width
-let g:tagbar_zoomwidth=0 " tag bar width when zoomed via x
+let g:tagbar_zoomwidth=80 " tag bar width when zoomed via x
 let g:tagbar_compact=1 "compactify the tag bar
 let g:tagbar_indent=1
 let g:tagbar_show_line_numbers=2 "relative line numbers
