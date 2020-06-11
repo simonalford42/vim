@@ -73,6 +73,7 @@ augroup END
 autocmd BufWritePost *.py call flake8#Flake8()
 " latex file upon saving.
 " autocmd BufWritePost *.tex FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
+autocmd FileType ocaml set commentstring=(*\ %s\ *)
 
 " augroup remember_folds
 "  autocmd!
