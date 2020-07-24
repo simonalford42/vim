@@ -32,6 +32,7 @@ set laststatus=2 "keep the status line up even if only one window
 
 set bg=dark "dark style
 colo solarized " solarized color scheme
+hi Normal guibg=NONE ctermbg=NONE
 
 set backspace=indent,eol,start " backspace functionality
 set cc=80 " show a vertical line at 80 characters.
