@@ -14,6 +14,13 @@ set hidden " allow changing buffers without saving
 set number " show line numbers
 set relativenumber "show relative line numbers. with both, keeps line # at 0
 set mouse=a " allow mouse to be used
+" allows scrolling in iTerm?
+if has("mouse_sgr") " from  https://stackoverflow.com/questions/32103591/vim-cant-scroll-in-iterm2 now it's fine
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+
 set noshowmode " don't show --INSERT-- 
 set timeoutlen=3000 ttimeoutlen=00 " to make escaping insert mode faster.
 
@@ -34,7 +41,7 @@ let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
 let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
 let g:tex_flavor = "latex"
-set tw=80 fo=cqt wm=0 " start a new line after 80 characters.
+set tw=80 fo=cqtnlj wm=0 " start a new line after 80 characters.
 set visualbell " turn on visual bell so that set t_vb turns off flashing at
 set t_vb= " this is supposed to be blank
 
@@ -199,6 +206,10 @@ nmap <LEADER>e [[w*
 noremap <silent> <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
+
+" lambda symbol for lesson, delete this later
+inoremap <C-l> λ
+nnoremap <LEADER>ll iλ<ESC>
 " make an enumerate clause for latex
 noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
 " make print statement for yanked variable at current line
