@@ -172,7 +172,8 @@ inoremap <C-S> <ESC>:wa<CR>
 nnoremap <C-S> :wa<CR>
 
 inoremap <ESC> <ESC>:wa<CR>
-nnoremap <ESC> :wa<CR>
+" this just started causing my issues with keys getting pressed when I open vim
+" nnoremap <ESC> :wa<CR>
 
 " next and previous buffer
 nnoremap <silent> <C-K> :<C-U>execute v:count1 . "bn"<CR>
