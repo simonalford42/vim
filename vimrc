@@ -37,11 +37,7 @@ let g:tex_flavor = "latex"
 set tw=80 fo=cqt wm=0 " start a new line after 80 characters.
 set visualbell " turn on visual bell so that set t_vb turns off flashing at
 set t_vb= " this is supposed to be blank
-"au BufWinEnter * set relativenumber " set relativenumber for all buffers
 
-" for sketch syntax
-au BufRead,BufNewFile *.sk set syntax=sketch
-au BufRead,BufNewFile *.sk set filetype=java
 
 " make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh 
 highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
@@ -55,6 +51,22 @@ hi CursorLine cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 hi CursorColumn cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 
 "Autocmds:  
+
+" on openmind, don't go to the most recent line upon opening file
+if $HOSTNAME == "openmind7"
+    au! redhat BufReadPost
+endif
+
+" for sketch syntax
+au BufRead,BufNewFile *.sk set syntax=sketch
+au BufRead,BufNewFile *.sk set filetype=java
+
+" set relativenumber for all buffers
+"au BufWinEnter * set relativenumber 
+
+" If more than one window and previous buffer was NERDTree, go back to it.
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+
 augroup Inserting
     autocmd!
     autocmd InsertEnter * highlight StatusLine cterm=NONE ctermbg=4 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
@@ -69,8 +81,17 @@ augroup CursorLineOnlyInActiveWindow
     autocmd WinLeave * setlocal nocursorline
 augroup END
 
+" latex current file
+autocmd FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
+
+" no line wrapping for bash
+autocmd FileType sh set tw=0
+
+" Restore default behaviour when leaving Vim.
+autocmd VimLeave * silent !stty ixon
+
 " run python checker
-autocmd BufWritePost *.py call flake8#Flake8()
+" autocmd BufWritePost *.py call flake8#Flake8()
 " latex file upon saving.
 " autocmd BufWritePost *.tex FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
 autocmd FileType ocaml set commentstring=(*\ %s\ *)
@@ -82,9 +103,9 @@ autocmd FileType ocaml set commentstring=(*\ %s\ *)
 " augroup END
 
 " for yank highlighted text
-" if !exists('##TextYankPost')
-"    map y <Plug>(highlightedyank)
-" endif
+if !exists('##TextYankPost')
+   map y <Plug>(highlightedyank)
+endif
 
 " REMAPPINGS
 " double clicking highlights word, yanks to register
@@ -128,14 +149,23 @@ endfunction
 " old Y was a synonym for yy, this gives parallelism with C and D behavior
 map Y y$
 
+
+" move line down or up; maintain selection
+vnoremap <C-J> :move +1<CR>gv
+vnoremap <C-K> :move -2<CR>gv
+
 "make < > shifts keep selection
 vnoremap < <gv
 vnoremap > >gv
 " ctrl-S saves all and escapes
 " note: if ctrl-S and ctrl-Q aren't working, see 
 " https://vi.stackexchange.com/questions/2419/mapping-ctrls-does-not-work
-inoremap <C-S> <ESC>:w<CR>
-nnoremap <C-S> :w<CR>
+inoremap <C-S> <ESC>:wa<CR>
+nnoremap <C-S> :wa<CR>
+
+inoremap <ESC> <ESC>:wa<CR>
+nnoremap <ESC> :wa<CR>
+
 " next and previous buffer
 nnoremap <silent> <C-K> :<C-U>execute v:count1 . "bn"<CR>
 nnoremap <silent> <C-J> :<C-U>execute v:count1 . "bp"<CR>
@@ -149,13 +179,16 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 
 " LEADER REMAPPINGS. 
 
+noremap <LEADER>a :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
 " <Leader> enter adds new line above
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 " toggle python booleans
 nnoremap <LEADER>bt ciwTrue<ESC>
 nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
-map <LEADER>c gcc
+nmap <LEADER>c gcc
+vmap <LEADER>c gc
+
 " erase a line without saving to register
 noremap <LEADER>ds "_dd
 " make line blank
@@ -168,7 +201,7 @@ noremap <silent> <LEADER>h :set hlsearch!<CR>
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 " make an enumerate clause for latex
 noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
-    " make print statement for yanked variable at current line
+" make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: {}'.format(<ESC>pa))<ESC>
 " repeat last macro
 noremap <LEADER>r @@
@@ -194,6 +227,11 @@ nmap <LEADER>9 <Plug>BufTabLine.Go(9)
 nmap <LEADER>0 <Plug>BufTabLine.Go(10)
 nmap <LEADER>- <Plug>BufTabLine.Go(11)
 nmap <LEADER>= <Plug>BufTabLine.Go(12)
+nmap <LEADER><BS> <Plug>BufTabLine.Go(13)
+nmap <LEADER>\ <Plug>BufTabLine.Go(14)
+nmap <LEADER>] <Plug>BufTabLine.Go(15)
+nmap <LEADER>[ <Plug>BufTabLine.Go(16)
+
 
 " put a python comment above the line, instead of at end of line.
 nmap <LEADER># mzSF#D<LEADER><CR>kPjsy0kPS
@@ -204,26 +242,12 @@ noremap gb :e $MYVIMRC<CR>
 noremap <silent> gH :TagbarToggle<CR>
 " move focus to tag bar
 noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
-" latex current file
-autocmd FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
 
-" on openmind, don't go to the most recent line upon opening file
-if $HOSTNAME == "openmind7"
-    au! redhat BufReadPost
-endif
 
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
 silent !stty -ixon
-
-" Restore default behaviour when leaving Vim.
-autocmd VimLeave * silent !stty ixon
-
-
-" move cursor to tagbar. also makes sure relativenumber is on for it
-" noremap <silent> gr :TagbarOpen fj<CR>:set relativenumber<CR>
-"
 
 
 " COMMANDS
@@ -242,7 +266,8 @@ command! DelTrailWhite :%s/\s\+$//e
 command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
-command! Nowrap :setlocal tw=1000
+command! Flake call flake8#Flake8()
+
 
 
 " PLUGINS
@@ -265,10 +290,11 @@ let g:netrw_hide = 1
 let g:buftabline_numbers=2
 let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
-let g:highlightedyank_highlight_duration = 50
+let g:highlightedyank_highlight_duration = 52
 let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
+
 " Terminal prefs
 
 " help

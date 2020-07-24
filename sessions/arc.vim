@@ -46,23 +46,39 @@ noremap ; :
 vnoremap < <gv
 vnoremap > >gv
 noremap K "*
-noremap S $
+xmap S <Plug>VSurround
+nnoremap S $
+snoremap S $
+onoremap S $
 map Y y$
+nmap cS <Plug>CSurround
+nmap cs <Plug>Csurround
+nmap ds <Plug>Dsurround
 nmap gx <Plug>NetrwBrowseX
+xmap gS <Plug>VgSurround
+nmap gcu <Plug>Commentary<Plug>Commentary
+nmap gcc <Plug>CommentaryLine
+omap gc <Plug>Commentary
+nmap gc <Plug>Commentary
+xmap gc <Plug>Commentary
 noremap gm :so $MYVIMRC
 noremap <silent> gh :TagbarOpen fj:set relativenumber
 noremap <silent> gH :TagbarToggle
 noremap gb :e $MYVIMRC
 noremap gs g$
 noremap s ^
-nnoremap <Plug>OCamlSwitchEdit :call OCaml_switch(0)
-nnoremap <Plug>OCamlSwitchNewWin :call OCaml_switch(1)
-nnoremap <silent> <Plug>OCamlPrintType :call Ocaml_print_type("normal")
-xnoremap <silent> <Plug>OCamlPrintType :call Ocaml_print_type("visual")`<
+nmap ySS <Plug>YSsurround
+nmap ySs <Plug>YSsurround
+nmap yss <Plug>Yssurround
+nmap yS <Plug>YSurround
+nmap ys <Plug>Ysurround
+map y <Plug>(highlightedyank)
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+nnoremap <silent> <Plug>SurroundRepeat .
 onoremap <Plug>(highlightedyank) y
 xnoremap <silent> <Plug>(highlightedyank) :call highlightedyank#obsolete#highlightedyank#yank('x')
 nnoremap <silent> <Plug>(highlightedyank) :call highlightedyank#obsolete#highlightedyank#yank('n')
+nmap <silent> <Plug>CommentaryUndo :echoerr "Change your <Plug>CommentaryUndo map to <Plug>Commentary<Plug>Commentary"
 noremap <silent> <Plug>BufTabLine.Go(-1) :exe 'b'.get(buftabline#user_buffers(),-1,'')
 noremap <silent> <Plug>BufTabLine.Go(13) :exe 'b'.get(buftabline#user_buffers(),12,'')
 noremap <silent> <Plug>BufTabLine.Go(12) :exe 'b'.get(buftabline#user_buffers(),11,'')
@@ -80,6 +96,8 @@ noremap <silent> <Plug>BufTabLine.Go(1) :exe 'b'.get(buftabline#user_buffers()
 nnoremap <BS> <<
 nnoremap <silent> <2-LeftMouse> :let @/='\V\<'.escape(expand('<cword>'),'\').'\>':set hls:let @"=expand('<cword>')
 inoremap  A) 
+imap S <Plug>ISurround
+imap s <Plug>Isurround
 inoremap  :w
 let &cpo=s:cpo_save
 unlet s:cpo_save
@@ -99,7 +117,7 @@ set laststatus=2
 set listchars=tab:>-
 set mouse=a
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/commentary,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/tagbar,~/.vim/bundle/vim-buftabline,~/.vim/bundle/vim-flake8,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-highlightedyank,~/.vim/bundle/vim-surround,~/.vim/bundle/vimtex,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/commentary,~/.vim/bundle/ctrlp.vim,~/.vim/bundle/tagbar,~/.vim/bundle/vim-buftabline,~/.vim/bundle/vim-commentary,~/.vim/bundle/vim-flake8,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-highlightedyank,~/.vim/bundle/vim-surround,~/.vim/bundle/vimtex,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,~/.vim/after
 set shiftwidth=4
 set noshowmode
 set showtabline=2
@@ -114,35 +132,40 @@ set wildignore=*.pyc
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd /net/storage001.ib.cluster/om2/user/salford/neurosymbolic-modules/ec
+cd /rdma/vast-rdma/vast/cbmm/salford/neurosymbolic-modules/ec
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +14 bin/arc.py
-badd +221 solvers/grammar.ml
-badd +186 dreamcoder/enumeration.py
-badd +19 bin/addition.py
-badd +13 bin/listFuncTest.py
+badd +407 dreamcoder/domains/logo/main.py
+badd +1 bin/logo.py
+badd +14 dreamcoder/domains/list/main.py
+badd +1332 dreamcoder/recognition.py
+badd +1 bin/list.py
+badd +204 dreamcoder/dreamcoder.py
+badd +1 dreamcoder/domains/arc/arcPrimitives.py
+badd +70 bin/arc.py
+badd +16 dreamcoder/domains/logo/logoPrimitives.py
+badd +81 dreamcoder/domains/tower/towerPrimitives.py
+badd +83 dreamcoder/domains/text/textPrimitives.py
+badd +394 dreamcoder/domains/text/makeTextTasks.py
+badd +0 bin/arc2.py
 argglobal
 silent! argdel *
-argadd bin/arc.py
-argadd dreamcoder/domains/arc/arcInput.py
-argadd dreamcoder/domains/arc/arcPrimitives.py
-edit bin/listFuncTest.py
+argadd dreamcoder/domains/logo/main.py
+edit bin/arc2.py
 set splitbelow splitright
 wincmd _ | wincmd |
-split
-1wincmd k
+vsplit
+1wincmd h
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 58 + 33) / 67)
-exe '2resize ' . ((&lines * 5 + 33) / 67)
+exe 'vert 1resize ' . ((&columns * 134 + 87) / 175)
+exe 'vert 2resize ' . ((&columns * 40 + 87) / 175)
 argglobal
-edit bin/listFuncTest.py
 let s:cpo_save=&cpo
 set cpo&vim
 noremap <buffer> <F7> :call flake8#Flake8()
@@ -258,17 +281,16 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((17 * winheight(0) + 29) / 58)
+let s:l = 35 - ((6 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-39
-normal! 05|
+35
+normal! 0
 wincmd w
 argglobal
 enew
-nnoremap <buffer> <silent> c :cclose
-nnoremap <buffer> <silent> q :cclose
+file __Tagbar__.1
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -276,9 +298,9 @@ setlocal backupcopy=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=wipe
-setlocal buflisted
-setlocal buftype=quickfix
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
 setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
@@ -302,11 +324,11 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'qf'
-setlocal filetype=qf
+if &filetype != 'tagbar'
+setlocal filetype=tagbar
 endif
 setlocal foldcolumn=0
-setlocal foldenable
+setlocal nofoldenable
 setlocal foldexpr=0
 setlocal foldignore=#
 setlocal foldlevel=0
@@ -333,14 +355,14 @@ setlocal linebreak
 setlocal nolisp
 setlocal lispwords=
 set list
-setlocal list
+setlocal nolist
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal nomodifiable
 setlocal nrformats=octal,hex
 set number
-setlocal number
+setlocal nonumber
 setlocal numberwidth=4
 setlocal omnifunc=
 setlocal path=
@@ -361,26 +383,26 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%-15(%l,%c%V%)\ %P
+setlocal statusline=%#StatusLineNC#[Order]\ arc2.py
 setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'qf'
-setlocal syntax=qf
+if &syntax != 'tagbar'
+setlocal syntax=tagbar
 endif
 setlocal tabstop=4
 setlocal tags=
-setlocal textwidth=80
+setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
 setlocal undolevels=-123456
-setlocal winfixheight
-setlocal nowinfixwidth
-setlocal wrap
+setlocal nowinfixheight
+setlocal winfixwidth
+setlocal nowrap
 setlocal wrapmargin=0
 wincmd w
-exe '1resize ' . ((&lines * 58 + 33) / 67)
-exe '2resize ' . ((&lines * 5 + 33) / 67)
+exe 'vert 1resize ' . ((&columns * 134 + 87) / 175)
+exe 'vert 2resize ' . ((&columns * 40 + 87) / 175)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
