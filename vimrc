@@ -91,6 +91,7 @@ augroup END
 
 " latex current file
 autocmd FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
+autocmd FileType tex,latex noremap <buffer> gb :w<CR>:!latte2 %<CR>
 
 " no line wrapping for bash
 autocmd FileType sh set tw=0
@@ -216,6 +217,8 @@ nnoremap <LEADER>ll iλ<ESC>
 noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
 " make print statement for yanked variable at current line
 noremap <LEADER>p oprint('<ESC>pa: {}'.format(<ESC>pa))<ESC>
+" paste stuff
+noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
 " repeat last macro
 noremap <LEADER>r @@
 " compare swap file and original
