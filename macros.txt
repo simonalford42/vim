@@ -1,0 +1,8 @@
+ilet primitive_hsf"lyi"lpA = primitive "pA" (tint @> tint) (fun x -> x);;h/Primitivel
+^ makes primitive in ocaml. start at new ocaml line, with cursor at first
+Primitive in arcPrimitives.py
+iPrimitive("hllllhhhhwlyelpA"€kb€kb", arrow(tgrid, tgrid), a-€kb_pA),h/_€kb€kb]]l	i	lala 
+^ for making the primitive list after writing the _ function
+# make a primitive in Python. start with mouse at char 0 of the _ function def,
+at a blank line in the other tab to the left.
+wlyehpsi"i	A": Primitive("pA", arrow(tgrid, tgrid), _pA),ksjs€kbjl]]hl

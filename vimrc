@@ -69,12 +69,6 @@ endif
 au BufRead,BufNewFile *.sk set syntax=sketch
 au BufRead,BufNewFile *.sk set filetype=java
 
-" set relativenumber for all buffers
-"au BufWinEnter * set relativenumber 
-
-" If more than one window and previous buffer was NERDTree, go back to it.
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
-
 augroup Inserting
     autocmd!
     autocmd InsertEnter * highlight StatusLine cterm=NONE ctermbg=4 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
@@ -125,19 +119,11 @@ inoremap <C-B> <ESC>A)<ESC>
 
 " make it easier to yank to system register
 noremap K "*
-" since s and s are redundant, map to start and end of line
+" since s and s are redundant, map to start and end of line.
 noremap s ^
 noremap S $
 noremap gs g^ 
-noremap gs g$
-" may add these if they come up. but need to be careful about overwriting other
-" commands
-" map gY yg$ " has to be recursive so that y calls highlight text
-" map gyy g^yg$
-" noremap gC cg$
-" noremap gcc g^cg$ " note this will make gc (currently mapped) go slower
-" noremap gD dg$
-" noremap gdd g^dg$
+noremap gS g$
 
 " switch colon and semicolon keys in normal mode
 noremap ; :
@@ -199,20 +185,14 @@ nnoremap <LEADER>bf ciwFalse<ESC>
 nmap <LEADER>c gcc
 vmap <LEADER>c gc
 
-" erase a line without saving to register
-noremap <LEADER>ds "_dd
-" make line blank
-noremap <LEADER>dd 0d$
 " in python, search function you're inside's name
 nmap <LEADER>e [[w*
+
 " toggle hlsearch
 noremap <silent> <LEADER>h :set hlsearch!<CR>
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 
-" lambda symbol for lesson, delete this later
-inoremap <C-l> λ
-nnoremap <LEADER>ll iλ<ESC>
 " make an enumerate clause for latex
 noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
 " make print statement for yanked variable at current line
@@ -222,15 +202,28 @@ noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
 " repeat last macro
 noremap <LEADER>r @@
 " compare swap file and original
-noremap <LEADER>s <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
+noremap <LEADER>dg <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
 noremap <LEADER>df :windo diffthis<CR>
 noremap <LEADER>do :windo diffoff<CR>
-noremap <LEADER>t  :wa<CR>:bp\|bd #<CR><C-o>
-noremap <LEADER>v :bp<CR>:bp\|bd #<CR>
-noremap <LEADER>tw :set tw=0<CR>
-" uncomment line
-noremap <LEADER>u :s/#/<ESC>:noh<CR>
-" go to buffer 1-l0. hopefully won't have more than 10 open.
+
+function! ToggleTW()
+    if &tw
+        set tw=0
+    else
+        set tw=80
+    endif
+    echo 'tw ='&tw
+endfunction
+
+" toggle line wrapping while in insert modde
+inoremap <C-H> <C-O>:call ToggleTW()<CR> 
+noremap <C-H> :call ToggleTW()<CR> 
+
+" put a python comment above the line, instead of at end of line.
+noremap <LEADER># ma$F#DO<C-R>"<ESC>`a
+
+
+" go to buffer
 nmap <LEADER>1 <Plug>BufTabLine.Go(1)
 nmap <LEADER>2 <Plug>BufTabLine.Go(2)
 nmap <LEADER>3 <Plug>BufTabLine.Go(3)
@@ -248,9 +241,6 @@ nmap <LEADER>\ <Plug>BufTabLine.Go(14)
 nmap <LEADER>] <Plug>BufTabLine.Go(15)
 nmap <LEADER>[ <Plug>BufTabLine.Go(16)
 
-
-" put a python comment above the line, instead of at end of line.
-nmap <LEADER># mzSF#D<LEADER><CR>kPjsy0kPS
 " g remappings. For more code/python related stuff but not strict.
 " open vimrc
 noremap gb :e $MYVIMRC<CR>
@@ -310,6 +300,17 @@ let g:highlightedyank_highlight_duration = 52
 let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:surround_no_mappings=1 " customize surround mappings
+nmap d<LEADER>s  <Plug>Dsurround
+nmap c<LEADER>s  <Plug>Csurround
+nmap c<LEADER>S  <Plug>CSurround
+nmap y<LEADER>s  <Plug>Ysurround
+nmap y<LEADER>S  <Plug>YSurround
+nmap y<LEADER>ss <Plug>Yssurround
+nmap y<LEADER>Ss <Plug>YSsurround
+nmap y<LEADER>SS <Plug>YSsurround
+xmap <LEADER>S   <Plug>VSurround
+xmap g<LEADER>S  <Plug>VgSurround
 
 " Terminal prefs
 
