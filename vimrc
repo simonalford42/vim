@@ -22,7 +22,7 @@ else
 end
 
 set noshowmode " don't show --INSERT-- 
-set timeoutlen=3000 ttimeoutlen=00 " to make escaping insert mode faster.
+set timeoutlen=1000 ttimeoutlen=05 " to make escaping insert mode faster.
 
 set tabstop=4 " set number of spaces in tab
 set shiftwidth=4 " set shift width
@@ -157,6 +157,9 @@ vnoremap > >gv
 " https://vi.stackexchange.com/questions/2419/mapping-ctrls-does-not-work
 inoremap <C-S> <ESC>:wa<CR>
 nnoremap <C-S> :wa<CR>
+" C-S stopped working for me, so I'm switching to this
+" inoremap <C-H> <ESC>:wa<CR>
+" nnoremap <C-H> :wa<CR>
 
 inoremap <ESC> <ESC>:wa<CR>
 " this just started causing my issues with keys getting pressed when I open vim
@@ -205,6 +208,9 @@ noremap <LEADER>r @@
 noremap <LEADER>dg <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
 noremap <LEADER>df :windo diffthis<CR>
 noremap <LEADER>do :windo diffoff<CR>
+
+" copy file into temp file
+noremap <LEADER>z :%y<CR>:e ~/.vim/temp.txt<CR>:%d<CR>"0p
 
 function! ToggleTW()
     if &tw
@@ -255,7 +261,6 @@ noremap gm :so $MYVIMRC<CR>
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
 silent !stty -ixon
 
-
 " COMMANDS
 
 " Remove a file. not recommended, should move to ~/trash/ using bash instead.
@@ -273,6 +278,7 @@ command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
 command! Flake call flake8#Flake8()
+command! Hits %g!/Hits/d
 
 
 
