@@ -85,7 +85,7 @@ augroup END
 
 " latex current file
 autocmd FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
-autocmd FileType tex,latex noremap <buffer> gb :w<CR>:!latte2 %<CR>
+" autocmd FileType tex,latex noremap <buffer> gb :w<CR>:!latte2 %<CR>
 
 " no line wrapping for bash
 autocmd FileType sh set tw=0
