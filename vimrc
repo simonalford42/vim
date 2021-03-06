@@ -1,7 +1,7 @@
 " for pathogen plugin manager execute pathogen#infect()
 let g:pathogen_disabled = []
 call pathogen#infect()
-filetype off 
+filetype off
 syntax on
 filetype plugin indent on
 
@@ -21,8 +21,8 @@ else
     set ttymouse=xterm2
 end
 
-set noshowmode " don't show --INSERT-- 
-set timeoutlen=3000 ttimeoutlen=00 " to make escaping insert mode faster.
+set noshowmode " don't show --INSERT--
+set timeoutlen=1000 ttimeoutlen=05 " to make escaping insert mode faster.
 
 set tabstop=4 " set number of spaces in tab
 set shiftwidth=4 " set shift width
@@ -37,28 +37,29 @@ hi Normal guibg=NONE ctermbg=NONE
 set backspace=indent,eol,start " backspace functionality
 set cc=80 " show a vertical line at 80 characters.
 set list " show hidden characters
-set listchars=tab:>-" ,trail:_ "add tab as hidden char to show. Not sure if I want trailing spaces shown.
+set listchars=tab:>-,trail:_ "add tab as hidden char to show. Not sure if I want trailing spaces shown.
 let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
 let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
 let g:tex_flavor = "latex"
-set tw=80 fo=cqtnlj wm=0 " start a new line after 80 characters.
+set tw=79 fo=cqtnlj wm=0 " start a new line after 80 characters.
 set visualbell " turn on visual bell so that set t_vb turns off flashing at
 set t_vb= " this is supposed to be blank
+set iskeyword-=_ " underscores act like new words. trying it out.
 
 
-" make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh 
+" make the status line for foreground winfow bright red. The ctermbg, ctermfg colors can be found by running ~/Documents/bash/test_colors.sh
 highlight StatusLine cterm=NONE ctermbg=3 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 highlight BufTabLineCurrent cterm=underline ctermbg=14 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 "highlight BufTabLineHidden cterm=underline ctermbg=6 ctermfg=10 gui=underline guibg=#ffffff guifg=#d70000
 highlight BufTabLineActive cterm=None ctermbg=10 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
-highlight CursorLineNr cterm=None ctermbg=12 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000 
+highlight CursorLineNr cterm=None ctermbg=12 ctermfg=8 gui=None guibg=#ffffff guifg=#d70000
 highlight StatusLineNC cterm=NONE ctermbg=12 ctermfg=8 gui=underline guibg=#ffffff guifg=#d70000
 hi StatusLine cterm=NONE ctermbg=1 ctermfg=8 gui=NONE guibg=#ffffff guifg=#d70000
 hi CursorLine cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 hi CursorColumn cterm=None ctermbg=0 gui=None guibg=#ffffff guifg=#d70000
 
-"Autocmds:  
+"Autocmds:
 
 " on openmind, don't go to the most recent line upon opening file
 if $HOSTNAME == "openmind7"
@@ -95,6 +96,11 @@ autocmd VimLeave * silent !stty ixon
 
 " run python checker
 " autocmd BufWritePost *.py call flake8#Flake8()
+
+" set yapf as formatter for python
+" doesn't seem to be working though :(
+" autocmd FileType python setlocal formatprg=yapf
+
 " latex file upon saving.
 " autocmd BufWritePost *.tex FileType tex,latex noremap <buffer> gl :w<CR>:!latte %<CR>
 autocmd FileType ocaml set commentstring=(*\ %s\ *)
@@ -115,14 +121,14 @@ endif
 nnoremap <silent> <2-LeftMouse> :let @/='\V\<'.escape(expand('<cword>'),'\').'\>'<cr>:set hls<cr>:let @"=expand('<cword>')<cr>
 
 " add parenthesis to end of line while in insert mode
-inoremap <C-B> <ESC>A)<ESC> 
+inoremap <C-B> <ESC>A)<ESC>
 
 " make it easier to yank to system register
 noremap K "*
 " since s and s are redundant, map to start and end of line.
 noremap s ^
 noremap S $
-noremap gs g^ 
+noremap gs g^
 noremap gS g$
 
 " switch colon and semicolon keys in normal mode
@@ -153,12 +159,16 @@ vnoremap <C-K> :move -2<CR>gv
 vnoremap < <gv
 vnoremap > >gv
 " ctrl-S saves all and escapes
-" note: if ctrl-S and ctrl-Q aren't working, see 
+" note: if ctrl-S and ctrl-Q aren't working, see
 " https://vi.stackexchange.com/questions/2419/mapping-ctrls-does-not-work
 inoremap <C-S> <ESC>:wa<CR>
 nnoremap <C-S> :wa<CR>
+" C-S stopped working for me, so I'm switching to this
+" inoremap <C-H> <ESC>:wa<CR>
+" nnoremap <C-H> :wa<CR>
 
-inoremap <ESC> <ESC>:wa<CR>
+" this is also giving me issues, so turning off :(
+"inoremap <ESC> <ESC>:wa<CR>
 " this just started causing my issues with keys getting pressed when I open vim
 " nnoremap <ESC> :wa<CR>
 
@@ -173,20 +183,22 @@ nnoremap <BS> <<
 nnoremap <TAB> >>
 nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
 
-" LEADER REMAPPINGS. 
+" LEADER REMAPPINGS.
 
 noremap <LEADER>a :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
+
 " <Leader> enter adds new line above
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
-" toggle python booleans
-nnoremap <LEADER>bt ciwTrue<ESC>
-nnoremap <LEADER>bf ciwFalse<ESC>
 " comment line
 nmap <LEADER>c gcc
 vmap <LEADER>c gc
 
+noremap <LEADER>d :DelTrailWhite<CR>
+
 " in python, search function you're inside's name
 nmap <LEADER>e [[w*
+
+noremap <LEADER>f :call flake8#Flake8()<CR>
 
 " toggle hlsearch
 noremap <silent> <LEADER>h :set hlsearch!<CR>
@@ -194,9 +206,16 @@ noremap <silent> <LEADER>h :set hlsearch!<CR>
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 
 " make an enumerate clause for latex
-noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA 
+noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA
+" run mypy type checker
+noremap <LEADER>m :!./mypy.sh<CR>
+
+" indent to line above's indentation
+noremap <LEADER>o k0y^j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
+
 " make print statement for yanked variable at current line
-noremap <LEADER>p oprint('<ESC>pa: {}'.format(<ESC>pa))<ESC>
+noremap <LEADER>p oprint(f"<ESC>pa: {<ESC>pa}")<ESC>
+
 " paste stuff
 noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
 " repeat last macro
@@ -205,6 +224,12 @@ noremap <LEADER>r @@
 noremap <LEADER>dg <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
 noremap <LEADER>df :windo diffthis<CR>
 noremap <LEADER>do :windo diffoff<CR>
+
+" run yapf
+noremap <LEADER>y ma:0,$!yapf<CR>:w<CR>`a
+
+" copy file into temp file
+noremap <LEADER>z :%y<CR>:e ~/.vim/temp.txt<CR>:%d<CR>"0p
 
 function! ToggleTW()
     if &tw
@@ -215,12 +240,15 @@ function! ToggleTW()
     echo 'tw ='&tw
 endfunction
 
-" toggle line wrapping while in insert modde
-inoremap <C-H> <C-O>:call ToggleTW()<CR> 
-noremap <C-H> :call ToggleTW()<CR> 
+" toggle line wrapping while in insert mode
+inoremap <C-H> <C-O>:call ToggleTW()<CR>
+noremap <C-H> :call ToggleTW()<CR>
 
 " put a python comment above the line, instead of at end of line.
-noremap <LEADER># ma$F#DO<C-R>"<ESC>`a
+" extra work needed to delete trailing whitespace.
+noremap <LEADER># ma$F#DV:s/\s\+$//e<CR>O<C-R>"<ESC>`a
+
+command! DelTrailWhite :%s/\s\+$//e
 
 
 " go to buffer
@@ -255,7 +283,6 @@ noremap gm :so $MYVIMRC<CR>
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
 silent !stty -ixon
 
-
 " COMMANDS
 
 " Remove a file. not recommended, should move to ~/trash/ using bash instead.
@@ -273,6 +300,7 @@ command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
 command! Flake call flake8#Flake8()
+command! Hits %g!/Hits/d
 
 
 
@@ -285,11 +313,12 @@ let g:tagbar_indent=1
 let g:tagbar_show_line_numbers=2 "relative line numbers
 let g:tagbar_singleclick=1 " jump by a single clikc
 let g:tagbar_sort=0 " don't sort alphabetically
+let g:tagbar_wrap=1 " wrap tags if they go past width
 let g:netrw_liststyle = 4 " file navigator default view
 let g:netrw_banner = 0 " don't show the header for file navigator
 let g:netrw_winsize = 25 "file navigator width is 25% of page
 let g:netrw_list_hide = '^\./$' " for hiding ./ I think
-let g:netrw_bufsettings = 'noma nomod ro' 
+let g:netrw_bufsettings = 'noma nomod ro'
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide.=',' . ghregex
 let g:netrw_hide = 1
@@ -318,6 +347,6 @@ xmap g<LEADER>S  <Plug>VgSurround
 " https://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " https://vim.fandom.com/wiki/Unused_keys
 "
-" If you need high contrast color scheme: 
+" If you need high contrast color scheme:
 " Go to Terminal preferences and make Bright the default. Open a new tab, and
 " set colo Delek. Also increase the font size a bit.
