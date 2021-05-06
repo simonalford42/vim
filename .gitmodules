@@ -1,0 +1,18 @@
+[submodule "bundle/vim-fugitive"]
+	path = bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "bundle/vim-highlightedyank"]
+	path = bundle/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank.git
+[submodule "bundle/vim-flake8"]
+	path = bundle/vim-flake8
+	url = https://github.com/nvie/vim-flake8.git
+[submodule "bundle/vim-buftabline"]
+	path = bundle/vim-buftabline
+	url = https://github.com/ap/vim-buftabline.git
+[submodule "bundle/vim-commentary"]
+	path = bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = https://github.com/preservim/tagbar.git
