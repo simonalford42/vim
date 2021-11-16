@@ -16,3 +16,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/preservim/tagbar.git
+[submodule "vim-buftabline"]
+	path = vim-buftabline
+	url = https://github.com/simonalford42/vim-buftabline.git
