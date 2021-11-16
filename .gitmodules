@@ -19,3 +19,6 @@
 [submodule "vim-buftabline"]
 	path = vim-buftabline
 	url = https://github.com/simonalford42/vim-buftabline.git
+[submodule "bundle/vim-buftabline2"]
+	path = bundle/vim-buftabline2
+	url = https://github.com/simonalford42/vim-buftabline.git
