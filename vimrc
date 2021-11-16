@@ -199,7 +199,8 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 
 " LEADER REMAPPINGS.
 
-noremap <LEADER>a :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
+" noremap <LEADER>a :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
+noremap <LEADER>1 :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
 
 " <Leader> enter adds new line above
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
@@ -207,20 +208,25 @@ nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:cou
 nmap <LEADER>c gcc
 vmap <LEADER>c gc
 
-noremap <LEADER>d :DelTrailWhite<CR>
+" noremap <LEADER>d :DelTrailWhite<CR>
+noremap <LEADER>3 :DelTrailWhite<CR>
 
 " in python, search function you're inside's name
 nmap <LEADER>e [[w*
 
-noremap <LEADER>f :call flake8#Flake8()<CR>
+" noremap <LEADER>f :call flake8#Flake8()<CR>
+noremap <LEADER>4 :call flake8#Flake8()<CR>
 
 " toggle hlsearch
-noremap <silent> <LEADER>h :set hlsearch!<CR>
+" noremap <silent> <LEADER>h :set hlsearch!<CR>
+noremap <silent> <LEADER>6 :set hlsearch!<CR>
+
 " indent to parentheses above
 noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 
 " make an enumerate clause for latex
-noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA
+" noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA
+
 " run mypy type checker
 noremap <LEADER>m :!./mypy.sh<CR>
 
@@ -235,9 +241,9 @@ noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
 " repeat last macro
 noremap <LEADER>r @@
 " compare swap file and original
-noremap <LEADER>dg <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
-noremap <LEADER>df :windo diffthis<CR>
-noremap <LEADER>do :windo diffoff<CR>
+noremap <LEADER>3g <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
+noremap <LEADER>3f :windo diffthis<CR>
+noremap <LEADER>3o :windo diffoff<CR>
 
 " run yapf
 noremap <LEADER>y ma:0,$!yapf<CR>:w<CR>`a
@@ -266,22 +272,22 @@ command! DelTrailWhite :%s/\s\+$//e
 
 
 " go to buffer
-nmap <LEADER>1 <Plug>BufTabLine.Go(1)
-nmap <LEADER>2 <Plug>BufTabLine.Go(2)
-nmap <LEADER>3 <Plug>BufTabLine.Go(3)
-nmap <LEADER>4 <Plug>BufTabLine.Go(4)
-nmap <LEADER>5 <Plug>BufTabLine.Go(5)
-nmap <LEADER>6 <Plug>BufTabLine.Go(6)
-nmap <LEADER>7 <Plug>BufTabLine.Go(7)
-nmap <LEADER>8 <Plug>BufTabLine.Go(8)
-nmap <LEADER>9 <Plug>BufTabLine.Go(9)
-nmap <LEADER>0 <Plug>BufTabLine.Go(10)
-nmap <LEADER>- <Plug>BufTabLine.Go(11)
-nmap <LEADER>= <Plug>BufTabLine.Go(12)
-nmap <LEADER><BS> <Plug>BufTabLine.Go(13)
-nmap <LEADER>\ <Plug>BufTabLine.Go(14)
-nmap <LEADER>] <Plug>BufTabLine.Go(15)
-nmap <LEADER>[ <Plug>BufTabLine.Go(16)
+nmap <LEADER>a <Plug>BufTabLine.Go(1)
+nmap <LEADER>s <Plug>BufTabLine.Go(2)
+nmap <LEADER>d <Plug>BufTabLine.Go(3)
+nmap <LEADER>f <Plug>BufTabLine.Go(4)
+nmap <LEADER>g <Plug>BufTabLine.Go(5)
+nmap <LEADER>h <Plug>BufTabLine.Go(6)
+nmap <LEADER>j <Plug>BufTabLine.Go(7)
+nmap <LEADER>k <Plug>BufTabLine.Go(8)
+nmap <LEADER>l <Plug>BufTabLine.Go(9)
+nmap <LEADER>; <Plug>BufTabLine.Go(10)
+nmap <LEADER>' <Plug>BufTabLine.Go(11)
+" nmap <LEADER>= <Plug>BufTabLine.Go(12)
+" nmap <LEADER><BS> <Plug>BufTabLine.Go(13)
+" nmap <LEADER>\ <Plug>BufTabLine.Go(14)
+" nmap <LEADER>] <Plug>BufTabLine.Go(15)
+" nmap <LEADER>[ <Plug>BufTabLine.Go(16)
 
 " g remappings. For more code/python related stuff but not strict.
 " open vimrc
@@ -290,6 +296,8 @@ noremap gb :e $MYVIMRC<CR>
 noremap <silent> gH :TagbarToggle<CR>
 " move focus to tag bar
 noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
+" open tagbar, but close after selection made
+noremap <silent> gn :TagbarOpen fjc<CR>:set relativenumber<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
 
@@ -320,7 +328,7 @@ command! Hits %g!/Hits/d
 
 " PLUGINS
 
-let g:tagbar_width=40 " tag bar width
+let g:tagbar_width=70 " tag bar width
 let g:tagbar_zoomwidth=80 " tag bar width when zoomed via x
 let g:tagbar_compact=1 "compactify the tag bar
 let g:tagbar_indent=1
@@ -337,6 +345,7 @@ let ghregex='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide.=',' . ghregex
 let g:netrw_hide = 1
 let g:buftabline_numbers=2
+let g:buftabline_asdf=1
 let g:buftabline_separators=1
 let g:buftabline_plug_max = 13
 let g:highlightedyank_highlight_duration = 52
@@ -344,16 +353,16 @@ let g:netrw_dirhistmax = 0 " don't save history in .netrwhist file
 let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:surround_no_mappings=1 " customize surround mappings
-nmap d<LEADER>s  <Plug>Dsurround
-nmap c<LEADER>s  <Plug>Csurround
-nmap c<LEADER>S  <Plug>CSurround
-nmap y<LEADER>s  <Plug>Ysurround
-nmap y<LEADER>S  <Plug>YSurround
-nmap y<LEADER>ss <Plug>Yssurround
-nmap y<LEADER>Ss <Plug>YSsurround
-nmap y<LEADER>SS <Plug>YSsurround
-xmap <LEADER>S   <Plug>VSurround
-xmap g<LEADER>S  <Plug>VgSurround
+nmap d<LEADER>2  <Plug>Dsurround
+nmap c<LEADER>2  <Plug>Csurround
+nmap c<LEADER>3  <Plug>CSurround
+nmap y<LEADER>2  <Plug>Ysurround
+nmap y<LEADER>3  <Plug>YSurround
+nmap y<LEADER>22 <Plug>Yssurround
+nmap y<LEADER>32 <Plug>YSsurround
+nmap y<LEADER>33 <Plug>YSsurround
+xmap <LEADER>3   <Plug>VSurround
+xmap g<LEADER>3  <Plug>VgSurround
 
 " Terminal prefs
 
