@@ -35,20 +35,20 @@ colo solarized " solarized color scheme
 hi Normal guibg=NONE ctermbg=NONE
 
 set backspace=indent,eol,start " backspace functionality
-set cc=80 " show a vertical line at 80 characters.
+set cc=100 " show a vertical line at 80 characters.
 set list " show hidden characters
 
 
 "add tab, trailing whitespace as hidden chars to show
-" set listchars=tab:>-,trail:_
+set listchars=tab:>-,trail:_
 " add tab as hidden char to show
-set listchars=tab:>-,
+" set listchars=tab:>-,
 
 let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
 let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
 let g:tex_flavor = "latex"
-set tw=79 fo=cqtnlj wm=0 " start a new line after 80 characters.
+set tw=99 fo=cqtnlj wm=0 " start a new line after 99 characters.
 set visualbell " turn on visual bell so that set t_vb turns off flashing at
 set t_vb= " this is supposed to be blank
 
@@ -203,6 +203,7 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 noremap <LEADER>1 :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
 
 " <Leader> enter adds new line above
+
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 " comment line
 nmap <LEADER>c gcc
@@ -222,7 +223,8 @@ noremap <LEADER>4 :call flake8#Flake8()<CR>
 noremap <silent> <LEADER>6 :set hlsearch!<CR>
 
 " indent to parentheses above
-noremap <LEADER>i k0yf(j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
+" note: does not work if there's not whitespace
+noremap <LEADER>i k0yf(j^hv0p:s/\%V./ /g<CR>
 
 " make an enumerate clause for latex
 " noremap <LEADER>le o\begin{enumerate}[label=(\alph*)]<ESC>o<ESC>I\item<ESC>o<ESC>I\end{enumerate}<ESC>kA
