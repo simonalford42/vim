@@ -1,3 +1,5 @@
+" bash shebang:
+" #!/usr/bin/env bash
 " for pathogen plugin manager execute pathogen#infect()
 let g:pathogen_disabled = []
 call pathogen#infect()
@@ -205,6 +207,8 @@ noremap <LEADER>1 :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied cli
 " <Leader> enter adds new line above
 
 nnoremap <silent> <LEADER><CR> :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <LEADER>] i<CR><ESC>k$
+
 " comment line
 nmap <LEADER>c gcc
 vmap <LEADER>c gc
@@ -302,6 +306,8 @@ noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
 noremap <silent> gn :TagbarOpen fjc<CR>:set relativenumber<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
+" reload files
+noremap <silent> gr :bufdo! e<CR>
 
 
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
