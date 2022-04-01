@@ -314,8 +314,9 @@ noremap gm :so $MYVIMRC<CR>
 noremap gs i#!/usr/bin/env bash<ESC>
 noremap gd gdzt
 
-noremap gt :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>:bn<CR>
-=======
+noremap g; :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>:bn<CR>
+noremap ga :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>
+
 " reload files
 noremap <silent> gr :bufdo! e<CR>
 
