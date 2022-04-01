@@ -1,5 +1,3 @@
-" bash shebang:
-" #!/usr/bin/env bash
 " for pathogen plugin manager execute pathogen#infect()
 let g:pathogen_disabled = []
 call pathogen#infect()
@@ -308,6 +306,11 @@ noremap <silent> gn :TagbarOpen fjc<CR>:set relativenumber<CR>
 noremap gm :so $MYVIMRC<CR>
 " reload files
 noremap <silent> gr :bufdo! e<CR>
+
+" move file to trash
+noremap gt :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>:bn<CR>
+noremap gT :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>
+
 
 
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
