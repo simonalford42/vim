@@ -1,5 +1,3 @@
-" bash shebang,  gs
-" noremap gs = i#!/usr/bin/env bash<ESC>
 " for pathogen plugin manager execute pathogen#infect()
 let g:pathogen_disabled = []
 call pathogen#infect()
@@ -320,7 +318,6 @@ noremap ga :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>
 " reload files
 noremap <silent> gr :bufdo! e<CR>
 
-
 " Allow us to use Ctrl-s and Ctrl-q as keybinds
 silent !stty -ixon
 
@@ -338,8 +335,6 @@ command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
 command! Flake call flake8#Flake8()
-" do gt instead, can't write the command properly
-" command! Trash 
 
 " seems to be messing with syntax highlighting?
 " command! Reload :bufdo :e! | syntax on
