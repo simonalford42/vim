@@ -46,7 +46,10 @@ set listchars=tab:>-,trail:_
 
 let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
-let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
+" let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
+" maybe this will work?
+" let $BASH_ENV = "/usr/bin/bash"
+
 let g:tex_flavor = "latex"
 set tw=99 fo=cqtnlj wm=0 " start a new line after 99 characters.
 set visualbell " turn on visual bell so that set t_vb turns off flashing at
@@ -164,6 +167,7 @@ endfunction
 " old Y was a synonym for yy, this gives parallelism with C and D behavior
 map Y y$
 
+nmap <S-tab> <<
 
 " move line down or up; maintain selection
 vnoremap <C-J> :move +1<CR>gv
@@ -175,8 +179,8 @@ vnoremap > >gv
 " ctrl-S saves all and escapes
 " note: if ctrl-S and ctrl-Q aren't working, see
 " https://vi.stackexchange.com/questions/2419/mapping-ctrls-does-not-work
-inoremap <C-S> <ESC>:wa<CR>
-nnoremap <C-S> :wa<CR>
+inoremap <C-S> <ESC>:wa<CR>:echo 'saved all'<CR>
+nnoremap <C-S> :wa<CR>:echo 'saved all'<CR>
 " C-S stopped working for me, so I'm switching to this
 " inoremap <C-H> <ESC>:wa<CR>
 " nnoremap <C-H> :wa<CR>
@@ -199,7 +203,6 @@ nnoremap <silent> <CR> :<C-u>call append(line("."),   repeat([""], v:count1))<CR
 
 " LEADER REMAPPINGS.
 
-" noremap <LEADER>a :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
 noremap <LEADER>1 :e ~/.vim/clip.txt<CR>:%d<CR>"0P:w<CR>:bd<CR>:echo "copied clipboard to ~/.vim/clip.txt"<CR>
 
 " <Leader> enter adds new line above
@@ -304,6 +307,13 @@ noremap <silent> gh :TagbarOpen fj<CR>:set relativenumber<CR>
 noremap <silent> gn :TagbarOpen fjc<CR>:set relativenumber<CR>
 " source vimrc
 noremap gm :so $MYVIMRC<CR>
+
+" bash shebang
+noremap gs i#!/usr/bin/env bash<ESC>
+noremap gd gdzt
+
+noremap gt :!mv <C-R>% ~/trash/ <CR>:bp\|bd #<CR>:echo "moved file to trash"<CR>:bn<CR>
+
 " reload files
 noremap <silent> gr :bufdo! e<CR>
 
@@ -318,9 +328,6 @@ silent !stty -ixon
 
 " COMMANDS
 
-" Remove a file. not recommended, should move to ~/trash/ using bash instead.
-"command! -complete=file -nargs=1 Remove :echo 'Remove: '.'<f-args>'.' '
-"            \.(delete(<f-args>) == 0 ? 'SUCCEEDED' : 'FAILED')
 " Clear all previous mappings
 command! Mapclearr :mapclear | mapclear <buffer> | mapclear!
             \| mapclear! <buffer>
@@ -333,9 +340,11 @@ command! ToFourSpaces :set ts=2 sts=2 noet | retab! | set ts=4 sts=4 et
             \| retab
 command! ToTwoSpaces :set ts=4 sts=4 noet | retab! | set ts=2 sts=2 et | retab
 command! Flake call flake8#Flake8()
-command! Hits %g!/Hits/d
+" do gt instead, can't write the command properly
+" command! Trash 
 
-
+" seems to be messing with syntax highlighting?
+" command! Reload :bufdo :e! | syntax on
 
 " PLUGINS
 
