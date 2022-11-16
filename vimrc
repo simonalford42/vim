@@ -46,9 +46,6 @@ set listchars=tab:>-,trail:_
 
 let mapleader=" " "set spacebar to the leader
 set linebreak " wrap lines at new words
-" let $BASH_ENV = "~/.vim/vim_bash" " use bash commands in shell
-" maybe this will work?
-" let $BASH_ENV = "/usr/bin/bash"
 
 let g:tex_flavor = "latex"
 set tw=99 fo=cqtnlj wm=0 " start a new line after 99 characters.
@@ -81,7 +78,7 @@ au BufRead,BufNewFile *.skh set syntax=sketch
 au BufRead,BufNewFile *.skh set filetype=java
 
 augroup Inserting
-    autocmd!
+    " autocmd!
     autocmd InsertEnter * highlight StatusLine cterm=NONE ctermbg=4 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
     " Revert Color to default when leaving Insert Mode
     autocmd InsertLeave * highlight StatusLine cterm=NONE ctermbg=1 ctermfg=8 gui=underline gui=NONE guibg=#ffffff guifg=#d70000
@@ -139,6 +136,9 @@ nnoremap <silent> <2-LeftMouse> :let @/='\V\<'.escape(expand('<cword>'),'\').'\>
 
 " add parenthesis to end of line while in insert mode
 inoremap <C-B> <ESC>A)<ESC>
+
+" make the python print statemet
+imap <C-J> <ESC>^v$hy<SPACE>pkdd
 
 " make it easier to yank to system register
 noremap K "*
@@ -241,7 +241,7 @@ noremap <LEADER>m :!./mypy.sh<CR>
 noremap <LEADER>o k0y^j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 
 " make print statement for yanked variable at current line
-noremap <LEADER>p oprint(f"<ESC>pa: {<ESC>pa}")<ESC>
+noremap <LEADER>p oprint(f"{=}")<ESC>hhhP^
 
 " paste stuff
 noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
@@ -289,7 +289,7 @@ nmap <LEADER>j <Plug>BufTabLine.Go(7)
 nmap <LEADER>k <Plug>BufTabLine.Go(8)
 nmap <LEADER>l <Plug>BufTabLine.Go(9)
 nmap <LEADER>; <Plug>BufTabLine.Go(10)
-nmap <LEADER>' <Plug>BufTabLine.Go(11)
+nmap <LEADER>' <Plug>BufTabLine.Go(-1)
 " nmap <LEADER>= <Plug>BufTabLine.Go(12)
 " nmap <LEADER><BS> <Plug>BufTabLine.Go(13)
 " nmap <LEADER>\ <Plug>BufTabLine.Go(14)
@@ -346,6 +346,7 @@ let g:tagbar_zoomwidth=80 " tag bar width when zoomed via x
 let g:tagbar_compact=1 "compactify the tag bar
 let g:tagbar_indent=1
 let g:tagbar_show_line_numbers=2 "relative line numbers
+let g:tagbar_autoshowtag=2 " fold by default?
 let g:tagbar_singleclick=1 " jump by a single clikc
 let g:tagbar_sort=1 " don't sort alphabetically
 let g:tagbar_wrap=1 " wrap tags if they go past width
@@ -382,7 +383,3 @@ xmap g<LEADER>3  <Plug>VgSurround
 " help
 " https://stackoverflow.com/questions/2483849/detect-if-a-key-is-bound-to-something-in-vim
 " https://vim.fandom.com/wiki/Unused_keys
-"
-" If you need high contrast color scheme:
-" Go to Terminal preferences and make Bright the default. Open a new tab, and
-" set colo Delek. Also increase the font size a bit.
