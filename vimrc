@@ -241,12 +241,17 @@ noremap <LEADER>m :!./mypy.sh<CR>
 noremap <LEADER>o k0y^j^hv0pv0<ESC>:s/\%V./ /g<CR>:noh<CR>
 
 " make print statement for yanked variable at current line
-noremap <LEADER>p oprint(f"{=}")<ESC>hhhP^
+" noremap <LEADER>p oprint(f"{=}")<ESC>hhhP^
+" this one is compatible with older python versions
+noremap <LEADER>p oprint(f': {}')<ESC>hhP^f(llp^
+" shortcut
+map go ye<LEADER>p
 
 " paste stuff
-noremap <LEADER>q :set paste<CR>"*p:set nopaste<CR>
+noremap <LEADER>q :set paste!<CR>
 " repeat last macro
 noremap <LEADER>r @@
+
 " compare swap file and original
 noremap <LEADER>3g <C-w>o:sav! ~/.vim/.recovered<CR>:vs<CR><C-w>w:bn<CR>
 noremap <LEADER>3f :windo diffthis<CR>
